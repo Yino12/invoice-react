@@ -10,6 +10,7 @@ import ExportButtons from './components/ExportButtons/ExportButtons';
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [title, setTitle] = useState('COTIZACIÓN #41 - VINSER SOLUCIONES');
+  const [logoUrl, setLogoUrl] = useState(localStorage.getItem('logoUrl') || '');
   const [client, setClient] = useState({
     name: 'Vinser Soluciones',
     project: 'Servicio de diseño gráfico y web'
@@ -47,14 +48,15 @@ function App() {
     localStorage.setItem('headerText', title);
     localStorage.setItem('activities', JSON.stringify(activities));
     localStorage.setItem('darkMode', JSON.stringify(isDarkMode));
+    localStorage.setItem('logoUrl', logoUrl);
 
     // Update body class for dark mode
     document.body.classList.toggle('dark-mode', isDarkMode);
-  }, [title, activities, isDarkMode]);
+  }, [title, activities, isDarkMode, logoUrl]);
 
   return (
     <div className={`container ${isDarkMode ? 'dark-mode' : ''}`} id="invoice-container">
-      <Header title={title} onTitleChange={setTitle} />
+      <Header title={title} onTitleChange={setTitle} logoUrl={logoUrl} setLogoUrl={setLogoUrl} />
       <ClientDetails client={client} onClientChange={setClient} />
       <Activities activities={activities} onActivitiesChange={setActivities} />
       <ContactDetails contact={contact} onContactChange={setContact} />

@@ -62,7 +62,6 @@
 
 /* Dark mode styles */
 :global(body.dark-mode) .details {
-  background-color: #1e1e1e;
   color: #ffffff;
 }
 
