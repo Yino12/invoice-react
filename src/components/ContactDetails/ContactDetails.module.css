@@ -14,13 +14,13 @@
 
 .section::before {
   left: 0;
-  width: 31%;
+  width: 30%;
   background-color: #ffffff;
 }
 
 .section::after {
   right: 0;
-  width: 69%;
+  width: 70%;
   background-color: #ddd;
 }
 
@@ -94,7 +94,7 @@
 }
 
 :global(body.dark-mode) .section::before {
-  background-color: #0078bd;
+  background-color: #ffffff;
 }
 
 :global(body.dark-mode) .section::after {
@@ -102,5 +102,8 @@
 }
 
 :global(body.dark-mode) .leftColumn {
-  background-color: #0078bd;
+  background-color: #1e1e1e;
+}
+:global(body.dark-mode) .leftColumn {
+  background-color: #1e1e1e;
 }

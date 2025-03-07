@@ -151,7 +151,7 @@ input:focus {
 }
 
 :global(body.dark-mode) .section::before {
-  background-color: #0078bd;
+  background-color: #ffffff;
 }
 
 :global(body.dark-mode) .section::after {
@@ -159,5 +159,5 @@ input:focus {
 }
 
 :global(body.dark-mode) .leftColumn {
-  background-color: #0078bd;
+  background-color: #1e1e1e;
 }
