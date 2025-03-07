@@ -1,0 +1,36 @@
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin: 20px;
+}
+
+.exportButton {
+  display: block;
+  padding: 10px 20px;
+  background-color: #0067a1;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.exportButton:hover {
+  background-color: #005285;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Dark mode styles */
+:global(body.dark-mode) .exportButton {
+  background-color: #0078bd;
+  color: #ffffff;
+}
+
+:global(body.dark-mode) .exportButton:hover {
+  background-color: #0089d9;
+}

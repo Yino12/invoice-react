@@ -1,0 +1,82 @@
+.section {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.leftColumn {
+  width: 30%;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #0067a1;
+  padding: 10px;
+}
+
+.details {
+  width: 70%;
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.valueRow {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.valueRow input,
+.valueRow select {
+  flex: 1;
+  padding: 8px;
+  color: #2d2d2d;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+  background-color: white;
+}
+
+.valueRow input:focus,
+.valueRow select:focus {
+  outline: none;
+  border-color: #0067a1;
+  box-shadow: 0 0 0 2px rgba(0, 103, 161, 0.1);
+}
+
+.icon {
+  margin-right: 5px;
+  font-size: 16px;
+  vertical-align: middle;
+  color: #0067a1;
+}
+
+/* Dark mode styles */
+:global(body.dark-mode) .details {
+  background-color: #2d2d2d;
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+:global(body.dark-mode) .valueRow input,
+:global(body.dark-mode) .valueRow select {
+  background-color: #3d3d3d;
+  color: #ffffff;
+  border-color: #4d4d4d;
+}
+
+:global(body.dark-mode) .valueRow input:focus,
+:global(body.dark-mode) .valueRow select:focus {
+  border-color: #0078bd;
+  box-shadow: 0 0 0 2px rgba(0, 120, 189, 0.2);
+}
+
+:global(body.dark-mode) .icon {
+  color: #0078bd;
+}
+
+:global(body.dark-mode) .leftColumn {
+  background-color: #0078bd;
+}

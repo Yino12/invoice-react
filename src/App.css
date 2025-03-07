@@ -1,0 +1,186 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  padding: 20px;
+  margin: 0;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.container {
+  max-width: 800px;
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  margin: auto;
+  transition: all 0.3s ease;
+  background-color: #ffffff;
+  border-radius: 8px;
+}
+
+
+/* Dark mode styles */
+body.dark-mode {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+.container.dark-mode {
+  background-color: #313131;
+  color: #ffffff;
+  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+}
+
+.details {
+  color: #000000;
+}
+
+.details.dark-mode {
+  background-color: #2d2d2d;
+  color: #ffffff;
+}
+
+.section.dark-mode::after {
+  background-color: #444444;
+}
+
+.dark-mode input,
+.dark-mode textarea {
+  color: #ffffff;
+  background-color: #3d3d3d;
+}
+
+.contenedor-botones {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Common input styles */
+input, textarea {
+  border: 1px solid #ddd;
+  background-color: #ffffff;
+  font-size: 16px;
+  padding: 8px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+/* Common button styles */
+.add-button, .remove-button {
+  background-color: #0067a1;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.add-button:hover {
+  background-color: #005285;
+}
+
+.remove-button {
+  background-color: #dc3545;
+  margin-top: 0;
+}
+
+.remove-button:hover {
+  background-color: #c82333;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.export-button {
+  display: block;
+  margin: 20px;
+  padding: 10px 20px;
+  background-color: #0067a1;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.export-button:hover {
+  background-color: #005285;
+}
+
+.dark-mode .add-button,
+.dark-mode .export-button {
+  background-color: #0078bd;
+}
+
+.dark-mode .add-button:hover,
+.dark-mode .export-button:hover {
+  background-color: #0089d9;
+}
+
+.dark-mode .remove-button {
+  background-color: #e4434d;
+}
+
+.dark-mode .remove-button:hover {
+  background-color: #f65d67;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.no-button {
+  padding-right: 0 !important;
+}
+
+.export-mode input {
+  width: 100% !important;
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}

@@ -1,0 +1,21 @@
+.header {
+  background: #0067a1;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  outline: none;
+  border-radius: 0;
+  margin-bottom: 20px;
+}
+
+.header:focus {
+  background-color: #0067a1;
+}
+
+/* Dark mode styles */
+:global(body.dark-mode) .header {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
