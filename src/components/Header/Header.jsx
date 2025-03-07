@@ -17,7 +17,24 @@ const Header = ({ title, onTitleChange, logoUrl, setLogoUrl }) => {
     <div className={styles.headerContainer}>
       <div className={styles.logoSection}>
         {logoUrl ? (
-          <img src={logoUrl} alt="Logo" className={styles.logo} />
+          <label className={styles.logoContainer}>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleLogoUpload}
+              className={styles.fileInput}
+            />
+            <img src={logoUrl} alt="Logo" className={styles.logo} />
+            <div 
+              className={styles.removeIcon}
+              onClick={(e) => {
+                e.preventDefault();
+                setLogoUrl(null);
+              }}
+            >
+              ×
+            </div>
+          </label>
         ) : (
           <label className={styles.uploadLabel}>
             <input

@@ -28,7 +28,7 @@
   width: 30%;
   font-weight: bold;
   color: #ffffff;
-  background-color: #0078bd;
+  background-color: var(--primary-color);
   padding: 10px;
 }
 
@@ -57,7 +57,7 @@
 
 .valueRow input:focus {
   outline: none;
-  border-color: #0067a1;
+  border-color: var(--primary-color);
 }
 
 /* Dark mode styles */

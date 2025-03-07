@@ -8,7 +8,7 @@
 .exportButton {
   display: block;
   padding: 10px 20px;
-  background-color: #0067a1;
+  background-color: var(--primary-color);
   color: white;
   border: none;
   border-radius: 5px;
@@ -18,19 +18,47 @@
 }
 
 .exportButton:hover {
-  background-color: #005285;
+  background-color: var(--primary-color-hover);
 }
 
 .hidden {
   display: none !important;
 }
 
+.colorPickerContainer {
+  display: flex;
+  align-items: center;
+}
+
+.colorPicker {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background: none;
+}
+
+.colorPicker::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.colorPicker::-webkit-color-swatch {
+  border: 2px solid #ffffff;
+  border-radius: 4px;
+}
+
 /* Dark mode styles */
 :global(body.dark-mode) .exportButton {
-  background-color: #0078bd;
+  background-color: var(--dark-mode-primary);
   color: #ffffff;
 }
 
 :global(body.dark-mode) .exportButton:hover {
-  background-color: #0089d9;
+  background-color: var(--dark-mode-primary-hover);
+}
+
+:global(body.dark-mode) .colorPicker::-webkit-color-swatch {
+  border-color: #444444;
 }

@@ -1,3 +1,10 @@
+:root {
+  --primary-color: #0067a1;
+  --primary-color-hover: #005285;
+  --dark-mode-primary: #0078bd;
+  --dark-mode-primary-hover: #0089d9;
+}
+
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
@@ -66,7 +73,7 @@ input, textarea {
 
 /* Common button styles */
 .add-button, .remove-button {
-  background-color: #0067a1;
+  background-color: var(--primary-color);
   color: white;
   border: none;
   padding: 10px 20px;
@@ -78,7 +85,7 @@ input, textarea {
 }
 
 .add-button:hover {
-  background-color: #005285;
+  background-color: var(--primary-color-hover);
 }
 
 .remove-button {
@@ -100,7 +107,7 @@ input, textarea {
   display: block;
   margin: 20px;
   padding: 10px 20px;
-  background-color: #0067a1;
+  background-color: var(--primary-color);
   color: white;
   border: none;
   border-radius: 5px;
@@ -109,17 +116,17 @@ input, textarea {
 }
 
 .export-button:hover {
-  background-color: #005285;
+  background-color: var(--primary-color-hover);
 }
 
 .dark-mode .add-button,
 .dark-mode .export-button {
-  background-color: #0078bd;
+  background-color: var(--dark-mode-primary);
 }
 
 .dark-mode .add-button:hover,
 .dark-mode .export-button:hover {
-  background-color: #0089d9;
+  background-color: var(--dark-mode-primary-hover);
 }
 
 .dark-mode .remove-button {

@@ -8,7 +8,7 @@
   width: 30%;
   font-weight: bold;
   color: #ffffff;
-  background-color: #0067a1;
+  background-color: var(--primary-color);
   padding: 10px;
 }
 
@@ -42,7 +42,7 @@
 .valueRow input:focus,
 .valueRow select:focus {
   outline: none;
-  border-color: #0067a1;
+  border-color: var(--primary-color);
   box-shadow: 0 0 0 2px rgba(0, 103, 161, 0.1);
 }
 
@@ -50,7 +50,7 @@
   margin-right: 5px;
   font-size: 16px;
   vertical-align: middle;
-  color: #0067a1;
+  color: var(--primary-color);
 }
 
 /* Dark mode styles */
@@ -69,12 +69,12 @@
 
 :global(body.dark-mode) .valueRow input:focus,
 :global(body.dark-mode) .valueRow select:focus {
-  border-color: #0078bd;
+  border-color: var(--dark-mode-primary);
   box-shadow: 0 0 0 2px rgba(0, 120, 189, 0.2);
 }
 
 :global(body.dark-mode) .icon {
-  color: #0078bd;
+  color: var(--dark-mode-primary);
 }
 
 :global(body.dark-mode) .leftColumn {

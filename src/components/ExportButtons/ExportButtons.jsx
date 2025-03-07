@@ -3,7 +3,20 @@ import html2pdf from 'html2pdf.js';
 import * as XLSX from 'xlsx';
 import styles from './ExportButtons.module.css';
 
-const ExportButtons = ({ onDarkModeToggle, isDarkMode, data, title, client, contact, payment, onTitleChange, onClientChange, onContactChange, onPaymentChange, onActivitiesChange }) => {
+const adjustColor = (color, amount) => {
+  const clamp = (num) => Math.min(255, Math.max(0, num));
+  if (color.startsWith('#')) {
+    const hex = color.slice(1);
+    const num = parseInt(hex, 16);
+    const r = clamp(((num >> 16) & 0xFF) + amount);
+    const g = clamp(((num >> 8) & 0xFF) + amount);
+    const b = clamp((num & 0xFF) + amount);
+    return `#${((r << 16) | (g << 8) | b).toString(16).padStart(6, '0')}`;
+  }
+  return color;
+};
+
+const ExportButtons = ({ onDarkModeToggle, isDarkMode, data, title, client, contact, payment, onTitleChange, onClientChange, onContactChange, onPaymentChange, onActivitiesChange, setLogoUrl }) => {
   const exportToPDF = useCallback(() => {
     // Store current theme state
     const wasDarkMode = document.body.classList.contains('dark-mode');
@@ -94,33 +107,49 @@ const ExportButtons = ({ onDarkModeToggle, isDarkMode, data, title, client, cont
   }, []);
 
   const exportToExcel = useCallback(() => {
-    const workbook = XLSX.utils.book_new();
-    
-    // Create header sheet
-    const headerData = [{
-      'Título': title,
-      'Cliente': client.name,
-      'Proyecto': client.project,
-      'Teléfono': contact.phone,
-      'Email': contact.email,
-      'Dirección': contact.address,
-      'Método de Pago': payment.method,
-      'Detalles de Pago': payment.details
-    }];
-    const headerSheet = XLSX.utils.json_to_sheet(headerData);
-    XLSX.utils.book_append_sheet(workbook, headerSheet, 'Información');
+    try {
+      const workbook = XLSX.utils.book_new();
+      
+      // Create header sheet with all form data
+      const headerData = [{
+        'Título': title || '',
+        'Cliente': client?.name || '',
+        'Proyecto': client?.project || '',
+        'Teléfono': contact?.phone || '',
+        'Email': contact?.email || '',
+        'Dirección': contact?.address || '',
+        'Método de Pago': payment?.method || '',
+        'Detalles de Pago': payment?.details || '',
+        'Logo URL': document.querySelector('img.logo')?.src || ''
+      }];
+      const headerSheet = XLSX.utils.json_to_sheet(headerData);
+      XLSX.utils.book_append_sheet(workbook, headerSheet, 'Información');
 
-    // Create activities sheet
-    const activitiesSheet = XLSX.utils.json_to_sheet(data.activities.map(activity => ({
-      'Actividad': activity.name,
-      'Cantidad': activity.quantity,
-      'Valor': activity.value,
-      'Total': activity.quantity * activity.value
-    })));
-    XLSX.utils.book_append_sheet(workbook, activitiesSheet, 'Actividades');
+      // Create activities sheet with detailed information
+      const activitiesData = data?.activities?.map(activity => ({
+        'Actividad': activity.name || '',
+        'Cantidad': activity.quantity || 0,
+        'Valor': activity.value || 0,
+        'Total': (activity.quantity || 0) * (activity.value || 0)
+      })) || [];
+      const activitiesSheet = XLSX.utils.json_to_sheet(activitiesData);
+      XLSX.utils.book_append_sheet(workbook, activitiesSheet, 'Actividades');
 
-    XLSX.writeFile(workbook, 'cotizacion.xlsx');
-  }, [data.activities]);
+      // Add styling information
+      const stylingData = [{
+        'Modo Oscuro': isDarkMode,
+        'Color Principal': getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim()
+      }];
+      const stylingSheet = XLSX.utils.json_to_sheet(stylingData);
+      XLSX.utils.book_append_sheet(workbook, stylingSheet, 'Estilos');
+
+      // Write the file
+      XLSX.writeFile(workbook, 'cotizacion.xlsx');
+    } catch (error) {
+      console.error('Error exporting to Excel:', error);
+      alert('Error al exportar a Excel. Por favor, intente nuevamente.');
+    }
+  }, [data, isDarkMode, title, client, contact, payment]);
 
   const handleImportExcel = useCallback((event) => {
     const file = event.target.files[0];
@@ -148,6 +177,11 @@ const ExportButtons = ({ onDarkModeToggle, isDarkMode, data, title, client, cont
             method: headerData['Método de Pago'] || '',
             details: headerData['Detalles de Pago'] || ''
           });
+          // Update logo if present and valid
+          const logoUrl = headerData['Logo URL'];
+          if (logoUrl && (logoUrl.startsWith('data:image') || logoUrl.startsWith('http'))) {
+            setLogoUrl(logoUrl);
+          }
         }
       }
 
@@ -162,9 +196,32 @@ const ExportButtons = ({ onDarkModeToggle, isDarkMode, data, title, client, cont
         }));
         onActivitiesChange(formattedActivities);
       }
+
+      // Import styling information
+      const stylingSheet = workbook.Sheets['Estilos'];
+      if (stylingSheet) {
+        const [stylingData] = XLSX.utils.sheet_to_json(stylingSheet);
+        if (stylingData) {
+          // Update dark mode
+          if (typeof stylingData['Modo Oscuro'] === 'boolean') {
+            onDarkModeToggle();
+          }
+          // Update primary color
+          if (stylingData['Color Principal']) {
+            document.documentElement.style.setProperty('--primary-color', stylingData['Color Principal']);
+            document.documentElement.style.setProperty('--primary-color-hover', adjustColor(stylingData['Color Principal'], -20));
+          }
+        }
+      }
     };
     reader.readAsArrayBuffer(file);
-  }, []);
+  }, [onTitleChange, onClientChange, onContactChange, onPaymentChange, onActivitiesChange, onDarkModeToggle, setLogoUrl]);
+
+  const handleColorChange = (event) => {
+    const newColor = event.target.value;
+    document.documentElement.style.setProperty('--primary-color', newColor);
+    document.documentElement.style.setProperty('--primary-color-hover', adjustColor(newColor, -20));
+  };
 
   return (
     <div className={styles.buttonContainer}>
@@ -193,6 +250,15 @@ const ExportButtons = ({ onDarkModeToggle, isDarkMode, data, title, client, cont
       >
         {isDarkMode ? 'Modo Claro' : 'Modo Oscuro'}
       </button>
+      <div className={styles.colorPickerContainer}>
+        <input
+          type="color"
+          defaultValue="#0067a1"
+          onChange={handleColorChange}
+          className={styles.colorPicker}
+          title="Cambiar color principal"
+        />
+      </div>
     </div>
   );
 };
