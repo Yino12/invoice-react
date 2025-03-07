@@ -120,7 +120,16 @@ const ExportButtons = ({ onDarkModeToggle, isDarkMode, data, title, client, cont
         'Dirección': contact?.address || '',
         'Método de Pago': payment?.method || '',
         'Detalles de Pago': payment?.details || '',
-        'Logo URL': document.querySelector('img.logo')?.src || ''
+        'Logo URL': (() => {
+          const logoImg = document.querySelector('img.logo');
+          if (!logoImg) return '';
+          const logoUrl = logoImg.src;
+          // Only include data URLs and HTTPS URLs
+          if (logoUrl.startsWith('data:image/') || logoUrl.startsWith('https://')) {
+            return logoUrl;
+          }
+          return '';
+        })()
       }];
       const headerSheet = XLSX.utils.json_to_sheet(headerData);
       XLSX.utils.book_append_sheet(workbook, headerSheet, 'Información');
